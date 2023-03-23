@@ -14,7 +14,7 @@ const Home = () => {
   }
 
   return (
-    <Grid container spacing={2} sx={{overflowY:'hidden'}}>
+    <Grid container spacing={2}>
       {
         pokemonList.map((pokemon) => (
           <Grid key={pokemon.id} item xs={2}>

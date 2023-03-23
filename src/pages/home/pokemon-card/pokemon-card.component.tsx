@@ -18,9 +18,9 @@ const PokemonCard = ({ pokemon }: PokemonCardProps) => (
       </div>
 
     </div>
-
-
     <img src={pokemon.sprites.other['official-artwork'].front_default} style={{ width: '100%' }} alt="" />
+    <p>
+    </p>
   </Card>
 )
 

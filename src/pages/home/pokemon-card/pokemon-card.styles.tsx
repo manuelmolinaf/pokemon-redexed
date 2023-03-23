@@ -7,7 +7,7 @@ export const Card = styled(Paper)(({ theme }) => ({
   padding: theme.spacing(1),
   color: 'white',
   backdropFilter: 'blur(10px)', // add backdrop filter for acrylic effect
-  boxShadow: '0 8px 32px 0 rgba( 31, 38, 135, 0.37 )', // add box shadow for depth
+  boxShadow: '0', // add box shadow for depth
   transition: 'transform 0.3s ease-in-out', // add transition for hover effect
   '&:hover': {
     transform: 'scale(1.05)', // increase size on hover

@@ -1,8 +1,8 @@
 export interface Pokemon {
-  abilities: Ability2[];
+  abilities: Ability[];
   base_experience: number;
-  forms: Ability[];
-  game_indices: Gameindex[];
+  forms: Endpoint[];
+  game_indices: GameIndex[];
   height: number;
   held_items: any[];
   id: number;
@@ -12,7 +12,7 @@ export interface Pokemon {
   name: string;
   order: number;
   past_types: any[];
-  species: Ability;
+  species: Endpoint;
   sprites: Sprites;
   stats: Stat[];
   types: Type[];
@@ -21,13 +21,13 @@ export interface Pokemon {
 
 interface Type {
   slot: number;
-  type: Ability;
+  type: Endpoint;
 }
 
 interface Stat {
   base_stat: number;
   effort: number;
-  stat: Ability;
+  stat: Endpoint;
 }
 
 interface Sprites {
@@ -177,28 +177,28 @@ interface Dreamworld {
 }
 
 interface Move {
-  move: Ability;
+  move: Endpoint;
   version_group_details: Versiongroupdetail[];
 }
 
 interface Versiongroupdetail {
   level_learned_at: number;
-  move_learn_method: Ability;
-  version_group: Ability;
+  move_learn_method: Endpoint;
+  version_group: Endpoint;
 }
 
-interface Gameindex {
+interface GameIndex {
   game_index: number;
-  version: Ability;
+  version: Endpoint;
 }
 
-interface Ability2 {
-  ability: Ability;
+interface Ability {
+  ability: Endpoint;
   is_hidden: boolean;
   slot: number;
 }
 
-interface Ability {
+interface Endpoint {
   name: string;
   url: string;
 }
