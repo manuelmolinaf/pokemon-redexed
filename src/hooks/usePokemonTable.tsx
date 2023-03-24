@@ -13,9 +13,12 @@ import axios from 'axios';
 const usePokemonTable = () =>{
   
   const [pokemonTable, setPokemonTable] = useState<PokemonTable>(initialValue);
-  const [pagination, setPagination] = useState(20);
+  const [pagination, setPagination] = useState(100);
   const [pokemonList, setPokemonList] = useState<Pokemon[]>([]);
   const [loading, setLoading] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  
+
 
   useEffect(()=>{
     const fetchTable = async () => {
@@ -56,9 +59,13 @@ const usePokemonTable = () =>{
     const table = await axios.get<PokemonTable>(pokemonTable.next);
     setPokemonTable(table.data);
   };
+
+  const goToPage = async() =>{
+    
+  };
   
   
-  return{pokemonList, goToPreviousPage, goToNextPage, loading};
+  return{pokemonList, goToPreviousPage, goToNextPage, goToPage, loading};
 }
 
 export default usePokemonTable;
