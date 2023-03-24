@@ -1,4 +1,10 @@
 
-export const capitalizeFirstLetter = (string:string) => {
-  return string.charAt(0).toUpperCase() + string.slice(1);
+export const capitalizeName = (string: string) => {
+ 
+  let words = string.split('-');
+  words.forEach((word, index) => {
+    words[index] = word.charAt(0).toUpperCase() + word.slice(1);
+  });
+  return words.join(' ');
+
 }

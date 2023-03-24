@@ -13,5 +13,5 @@ export const Card = styled(Paper)(({ theme }) => ({
     transform: 'scale(1.05)', // increase size on hover
   },
   cursor: 'pointer',
-  minWidth:'200px'
+  minHeight:'250px'
 }));
