@@ -15,6 +15,7 @@ export const ContentDiv = styled('div')(({ theme }) => ({
    
   }));
 
-  export const OutletContainer = styled('div')(({ theme }) => ({
-    padding:'20px'
-  }));
+export const OutletContainer = styled('div')(({ theme }) => ({
+  padding:'20px'
+}));
+
