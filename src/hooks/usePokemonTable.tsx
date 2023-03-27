@@ -1,7 +1,8 @@
-import { useState, useEffect, Reducer, useReducer } from "react";
-import { PokemonTable, PokemonTableItem } from "../interfaces/pokemonTable";
+import { useState, useEffect } from "react";
+import { PokemonTable } from "../interfaces/pokemonTable";
 import { Pokemon } from "../interfaces/pokemon";
 import axios from 'axios';
+import { PokemonSpecies } from "../interfaces/PokemonSpecies";
 
 
 const INITIAL_STATE:PokemonTable = {
@@ -11,47 +12,34 @@ const INITIAL_STATE:PokemonTable = {
   results: []
 }
 
-enum CounterActionTypes {
-  GoToPreviousPage = 'GO_TO_PREVIOUS_PAGE',
-  GoToNextPage = 'GO_TO_NEXT_PAGE',
-  GoToPage = 'GO_TO_PAGE'
-}
-
-type PokemonTableActions = 
-  { type:  CounterActionTypes.GoToNextPage, payload:PokemonTable } | 
-  { type:  CounterActionTypes.GoToPreviousPage, payload:PokemonTable } | 
-  { type:  CounterActionTypes.GoToPage, payload:PokemonTable };
-
-
-
 
 const usePokemonTable = () =>{
 
   const [pokemonTable, setPokemonTable] = useState<PokemonTable>(INITIAL_STATE);
   const [pagination, setPagination] = useState(24);
-  const [pokemonList, setPokemonList] = useState<Pokemon[]>([]);
+  const [pokemonList, setPokemonList] = useState<PokemonSpecies[]>([]);
   const [loading, setLoading] = useState(false);
   const [pageCount, setPageCount] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
   
 
 
-  useEffect(()=>{
-    const fetchTable = async () => {
+
+  useEffect(()=>{ 
+    const goToPage = async() =>{
       setLoading(true);
-      const table = await axios.get<PokemonTable>(`https://pokeapi.co/api/v2/pokemon?offset=0&limit=${pagination}`);
-      setPokemonTable(table.data);
-      setLoading(false);
-    }
-    fetchTable();
-  },[]);
+      const response = await axios.get<PokemonTable>(`https://pokeapi.co/api/v2/pokemon-species?offset=${(currentPage-1)*pagination}&limit=${pagination}`);
+      setPokemonTable(response.data);
+    };
+    goToPage();
+  },[currentPage, pagination]);
 
   useEffect(()=>{
 
     const getResults = async () => {
-      setLoading(true);
-      const pokemonArray:Pokemon[] = [];
-      await Promise.all(pokemonTable.results.map(pokemon => axios.get<Pokemon>(pokemon.url)))
+      
+      const pokemonArray:PokemonSpecies[] = [];
+      await Promise.all(pokemonTable.results.map(pokemon => axios.get<PokemonSpecies>(pokemon.url)))
       .then(responses => {
         responses.forEach( response =>{
           pokemonArray.push(response.data);
@@ -61,40 +49,16 @@ const usePokemonTable = () =>{
       setPageCount(Math.ceil(pokemonTable.count/pagination));
       setLoading(false);
     }
+
     getResults();
   },[pokemonTable]);
 
-  //TODO: see if PokemonTable is really necessary
+
   useEffect(()=>{
     setPageCount(Math.ceil(pokemonTable.count/pagination));
   },[pagination]);
 
 
-  useEffect(()=>{
-    
-    const goToPage = async() =>{
-      setLoading(true);
-      const table = await axios.get<PokemonTable>(`https://pokeapi.co/api/v2/pokemon?offset=${(currentPage-1)*pagination}&limit=${pagination}`);
-      setPokemonTable(table.data);
-    };
-    goToPage();
-  },[currentPage]);
-
-
-
-  const goToPreviousPage = async() =>{
-    if(!pokemonTable.previous) return;
-
-    const table = await axios.get<PokemonTable>(pokemonTable.previous);
-    setPokemonTable(table.data);
-  };
-
-  const goToNextPage = async() =>{
-    if(!pokemonTable.next) return;
-    
-    const table = await axios.get<PokemonTable>(pokemonTable.next);
-    setPokemonTable(table.data);
-  };
 
   const goToPage = (page:number) =>{
     if(page > pageCount || loading) return;
@@ -105,7 +69,7 @@ const usePokemonTable = () =>{
 
   
   
-  return{pokemonList, goToPreviousPage, goToNextPage, goToPage, pageCount, currentPage, loading, pagination};
+  return{pokemonList, goToPage, pageCount, currentPage, loading, pagination};
 }
 
 export default usePokemonTable;

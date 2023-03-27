@@ -4,14 +4,12 @@ import { PaginationItem } from '@mui/material';
 import { PaginationContainer } from './pokemon-pagination.styles';
 
 interface PokemonPaginationProps {
-  goToPreviousPage: ()=>void,
-  goToNextPage: ()=>void,
   goToPage: (page:number)=>void,
   currentPage:number,
   pageCount:number
 }
 
-const PokemonPagination = ({goToPreviousPage, goToNextPage, goToPage, currentPage, pageCount}:PokemonPaginationProps) => {
+const PokemonPagination = ({goToPage, currentPage, pageCount}:PokemonPaginationProps) => {
   
   const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
     goToPage(value);
@@ -26,15 +24,15 @@ const PokemonPagination = ({goToPreviousPage, goToNextPage, goToPage, currentPag
               {...item}
               sx={
                 item.selected ? {
-                  backdropFilter: 'blur(100px)',
+                  backdropFilter: 'blur(20px)',
                   fontWeight: 'bold',
-                  backgroundColor: 'black',
-                  borderColor:'black'
+                  fontSize:'18px'
+                  
                 } : {
-                  fontWeight: 'bold',
-                  backgroundColor: 'rgba(255, 255, 255, 0.2)',
-                  backdropFilter: 'blur(10px)',
-                  color: 'black',
+                  // fontWeight: 'bold',
+                  // backgroundColor: 'rgba(255, 255, 255, 0.2)',
+                  // backdropFilter: 'blur(10px)',
+                  // color: 'black',
                 }}
             />
           )}

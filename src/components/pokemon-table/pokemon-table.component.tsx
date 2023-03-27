@@ -4,13 +4,11 @@ import Grid from '@mui/material/Grid';
 import PokemonCard from './pokemon-card/pokemon-card.component';
 import { styled } from '@mui/material/styles';
 import PokemonPagination from './pagination/pokemon-pagination.component';
-
+import PokemonCardLoading from './pokemon-card/pokemon-card-loading.component';
 const PokemonTable = () => {
 
   const {
     pokemonList,
-    goToPreviousPage,
-    goToNextPage,
     goToPage,
     currentPage,
     pageCount,
@@ -18,13 +16,10 @@ const PokemonTable = () => {
     pagination
   } = usePokemonTable();
 
-
   return (
     <Fragment>
 
       <PokemonPagination
-        goToPreviousPage={goToPreviousPage}
-        goToNextPage={goToNextPage}
         goToPage={goToPage}
         currentPage={currentPage}
         pageCount={pageCount}
@@ -36,7 +31,7 @@ const PokemonTable = () => {
         {
           Array.from({ length: pagination }).map((_, index) => (
             <Grid key={index} item xs={12} sm={6} md={4} lg={3} xl={2}>
-              <PokemonCard loading={loading} />
+              <PokemonCardLoading/>
             </Grid>
           ))
         }
@@ -47,8 +42,8 @@ const PokemonTable = () => {
 
         {
           pokemonList.map((pokemon) => (
-            <Grid key={pokemon.id} item xs={12} sm={6} md={4} lg={3} xl={2}>
-              <PokemonCard pokemon={pokemon} />
+            <Grid  key={pokemon.id} item xs={12} sm={6} md={4} lg={3} xl={2} >
+              <PokemonCard pokemonSpecies={pokemon} />
             </Grid>
           ))
         }
@@ -57,8 +52,6 @@ const PokemonTable = () => {
     }
       
       <PokemonPagination
-        goToPreviousPage={goToPreviousPage}
-        goToNextPage={goToNextPage}
         goToPage={goToPage}
         currentPage={currentPage}
         pageCount={pageCount}

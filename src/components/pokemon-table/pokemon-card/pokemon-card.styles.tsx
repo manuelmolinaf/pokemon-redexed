@@ -10,8 +10,10 @@ export const Card = styled(Paper)(({ theme }) => ({
   boxShadow: '0', // add box shadow for depth
   transition: 'transform 0.3s ease-in-out', // add transition for hover effect
   '&:hover': {
-    transform: 'scale(1.05)', // increase size on hover
+    transform: 'scale(1.05)'
   },
   cursor: 'pointer',
-  minHeight:'250px'
+  display:'flex',
+  flexDirection:'column',
+  zIndex:'1'
 }));
