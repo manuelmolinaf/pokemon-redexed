@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { PokemonTable } from "../interfaces/pokemonTable";
+import { PokemonTable, PokemonTableItem } from "../interfaces/pokemonTable";
 import { Pokemon } from "../interfaces/pokemon";
 import axios from 'axios';
 import { PokemonSpecies } from "../interfaces/PokemonSpecies";
@@ -16,23 +16,31 @@ const INITIAL_STATE:PokemonTable = {
 const usePokemonTable = () =>{
 
   const [pokemonTable, setPokemonTable] = useState<PokemonTable>(INITIAL_STATE);
-  const [pagination, setPagination] = useState(24);
+  const [pokemonPerPage, setPokemonPerPage] = useState(24);
   const [pokemonList, setPokemonList] = useState<PokemonSpecies[]>([]);
   const [loading, setLoading] = useState(false);
   const [pageCount, setPageCount] = useState(0);
-  const [currentPage, setCurrentPage] = useState(1);
-  
+  const [currentPage, setCurrentPage] = useState(0);
+  const [allPokemon, setAllPokemon] =useState(new Array<PokemonTableItem>());
 
 
 
   useEffect(()=>{ 
     const goToPage = async() =>{
       setLoading(true);
-      const response = await axios.get<PokemonTable>(`https://pokeapi.co/api/v2/pokemon-species?offset=${(currentPage-1)*pagination}&limit=${pagination}`);
+      const response = await axios.get<PokemonTable>(`https://pokeapi.co/api/v2/pokemon-species?offset=${(currentPage)*pokemonPerPage}&limit=${pokemonPerPage}`);
       setPokemonTable(response.data);
     };
     goToPage();
-  },[currentPage, pagination]);
+  },[currentPage, pokemonPerPage]);
+
+  useEffect(()=>{ 
+    const getAllPokemon = async() =>{
+      const response = await axios.get<PokemonTable>('https://pokeapi.co/api/v2/pokemon-species?offset=0&limit=10000');
+      setAllPokemon(response.data.results);
+    };
+    getAllPokemon();
+  },[]);
 
   useEffect(()=>{
 
@@ -46,7 +54,7 @@ const usePokemonTable = () =>{
         })
       });
       setPokemonList(pokemonArray);
-      setPageCount(Math.ceil(pokemonTable.count/pagination));
+      setPageCount(Math.ceil(pokemonTable.count/pokemonPerPage));
       setLoading(false);
     }
 
@@ -55,8 +63,8 @@ const usePokemonTable = () =>{
 
 
   useEffect(()=>{
-    setPageCount(Math.ceil(pokemonTable.count/pagination));
-  },[pagination]);
+    setPageCount(Math.ceil(pokemonTable.count/pokemonPerPage));
+  },[pokemonPerPage]);
 
 
 
@@ -67,9 +75,26 @@ const usePokemonTable = () =>{
     
   };
 
+  const defPokemonPerPage = (n:number) =>{
+    if(n<1) return;
+    
+    setPokemonPerPage(n);
+    
+  };
+
   
   
-  return{pokemonList, goToPage, pageCount, currentPage, loading, pagination};
+  return{
+    pokemonList,
+    goToPage,
+    pageCount,
+    currentPage,
+    loading,
+    pokemonPerPage,
+    defPokemonPerPage,
+    pokemonCount:pokemonTable.count,
+    allPokemon
+  };
 }
 
 export default usePokemonTable;

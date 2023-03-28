@@ -5,6 +5,9 @@ import PokemonCard from './pokemon-card/pokemon-card.component';
 import { styled } from '@mui/material/styles';
 import PokemonPagination from './pagination/pokemon-pagination.component';
 import PokemonCardLoading from './pokemon-card/pokemon-card-loading.component';
+import { HeaderFooterCard } from './pokemon-table.styles';
+import PokemonSearchInput from './pokemon-search-input/pokemon-search-input.component';
+
 const PokemonTable = () => {
 
   const {
@@ -13,23 +16,36 @@ const PokemonTable = () => {
     currentPage,
     pageCount,
     loading,
-    pagination
+    pokemonPerPage,
+    defPokemonPerPage,
+    pokemonCount,
+    allPokemon
   } = usePokemonTable();
 
   return (
     <Fragment>
-
-      <PokemonPagination
-        goToPage={goToPage}
-        currentPage={currentPage}
-        pageCount={pageCount}
-      />
+      <div style={{marginBottom: '20px'}}>
+        <HeaderFooterCard>
+          {/* <PokemonSearchInput allPokemon={allPokemon}/> */}
+          
+          <div style={{marginLeft:'auto'}}>
+            <PokemonPagination
+              goToPage={goToPage}
+              currentPage={currentPage}
+              pageCount={pageCount}
+              pokemonPerPage={pokemonPerPage}
+              defPokemonPerPage= {defPokemonPerPage}
+              pokemonCount={pokemonCount}
+            />
+          </div>
+        </HeaderFooterCard>
+      </div>
 
       {loading ?
         <Grid container spacing={4}>
 
         {
-          Array.from({ length: pagination }).map((_, index) => (
+          Array.from({ length: pokemonPerPage }).map((_, index) => (
             <Grid key={index} item xs={12} sm={6} md={4} lg={3} xl={2}>
               <PokemonCardLoading/>
             </Grid>
@@ -51,11 +67,22 @@ const PokemonTable = () => {
       </Grid>
     }
       
-      <PokemonPagination
-        goToPage={goToPage}
-        currentPage={currentPage}
-        pageCount={pageCount}
-      />
+      <div style={{marginTop: '20px'}}>
+        <HeaderFooterCard>
+          {/* <PokemonSearchInput allPokemon={allPokemon}/> */}
+          
+          <div style={{marginLeft:'auto'}}>
+            <PokemonPagination
+              goToPage={goToPage}
+              currentPage={currentPage}
+              pageCount={pageCount}
+              pokemonPerPage={pokemonPerPage}
+              defPokemonPerPage= {defPokemonPerPage}
+              pokemonCount={pokemonCount}
+            />
+          </div>
+        </HeaderFooterCard>
+      </div>
 
     </Fragment>
 

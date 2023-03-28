@@ -15,5 +15,6 @@ export const Card = styled(Paper)(({ theme }) => ({
   cursor: 'pointer',
   display:'flex',
   flexDirection:'column',
-  zIndex:'1'
+  minHeight:'330px'
+
 }));

@@ -1,44 +1,62 @@
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
-import { PaginationItem } from '@mui/material';
+import { Autocomplete, PaginationItem, styled, TextField } from '@mui/material';
 import { PaginationContainer } from './pokemon-pagination.styles';
+import TablePagination from '@mui/material/TablePagination';
+import { PokemonTableItem } from '../../../interfaces/pokemonTable';
+
+
 
 interface PokemonPaginationProps {
-  goToPage: (page:number)=>void,
-  currentPage:number,
-  pageCount:number
+  goToPage: (page: number) => void,
+  currentPage: number,
+  pageCount: number,
+  pokemonPerPage: number,
+  defPokemonPerPage: (n: number) => void,
+  pokemonCount: number,
 }
 
-const PokemonPagination = ({goToPage, currentPage, pageCount}:PokemonPaginationProps) => {
-  
-  const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
-    goToPage(value);
+
+
+
+const PokemonPagination = ({ goToPage, currentPage, pokemonPerPage, defPokemonPerPage, pokemonCount }: PokemonPaginationProps) => {
+
+
+  const handlePageChange = (event: React.MouseEvent<HTMLButtonElement> | null, newPage: number,) => {
+    goToPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
+
+    defPokemonPerPage(parseInt(event.target.value));
   };
 
   return (
-    <PaginationContainer>
-      <Stack spacing={2} sx={{ marginTop: '20px' }}>
-        <Pagination count={pageCount} page={currentPage} onChange={handleChange}  variant="outlined" shape="rounded" size="large"
-          renderItem={(item) => (
-            <PaginationItem
-              {...item}
-              sx={
-                item.selected ? {
-                  backdropFilter: 'blur(20px)',
-                  fontWeight: 'bold',
-                  fontSize:'18px'
-                  
-                } : {
-                  // fontWeight: 'bold',
-                  // backgroundColor: 'rgba(255, 255, 255, 0.2)',
-                  // backdropFilter: 'blur(10px)',
-                  // color: 'black',
-                }}
-            />
-          )}
+
+    <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+        
+
+        <TablePagination
+          component="div"
+          count={pokemonCount}
+          page={currentPage}
+          onPageChange={handlePageChange}
+          labelRowsPerPage='Pokémon per Page'
+          rowsPerPage={pokemonPerPage}
+          rowsPerPageOptions={[12, 24, 48, 96]}
+          onRowsPerPageChange={handleChangeRowsPerPage}
+          sx={{
+            marginLeft: 'auto',
+            color: 'white',
+            fontWeight: 'bold',
+            '& .MuiSelect-icon': {
+              color: 'white'
+            }
+          }}
         />
-      </Stack>
-    </PaginationContainer>
+      </div>
 
   )
 

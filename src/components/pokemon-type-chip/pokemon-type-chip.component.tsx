@@ -14,7 +14,10 @@ const PokemonTypeChip = ({pokemonType}: PokemonTypeChipProps) =>{
   const backgroundColor = typeMapping[pokemonType as keyof typeof PokemonTypes];
 
   return(
-    <Chip label={pokemonType} style={{backgroundColor, color:'white'}} />
+    <Chip 
+      icon={<img src={`type_icons/${pokemonType}.svg`} alt={pokemonType} width="15" height="15" />}
+      label={pokemonType} 
+      style={{backgroundColor, color:'white'}} />
   )
 }
 
