@@ -28,23 +28,12 @@ const PokemonCard = ({ pokemonSpecies }: PokemonCardProps) => {
     navigate(`/pokemon/${pokemonSpecies?.id}`);
   }
 
-  const getFlavorText = (mon?: PokemonSpecies) => {
-    if (!mon || !mon.flavor_text_entries) return;
-    return mon.flavor_text_entries.find(entry => entry.language.name === 'en')?.flavor_text.replace('\f', ' ').replace('POKéMON', 'Pokémon');
-  }
 
   const getName = (mon?: PokemonSpecies) => {
     if (!mon || !mon.names) return;
     return mon.names.find(name => name.language.name === 'en')?.name
   }
 
-  const formatFlavorText = (text?: string) => {
-    const characters = 100;
-    if (!text) return '';
-    if (isHovering) return text;
-
-    return text.substring(0, characters) + (characters < text.length ? '...' : '');
-  }
 
   return (
 
@@ -54,7 +43,7 @@ const PokemonCard = ({ pokemonSpecies }: PokemonCardProps) => {
           {getName(pokemonSpecies)}
         </div>
         <div style={{ marginLeft: 'auto' }}>
-          # {pokemonSpecies?.pokedex_numbers.find(entry => entry.pokedex.name === 'national')?.entry_number}
+          # {pokemonSpecies?.id}
         </div>
       </div>
       {

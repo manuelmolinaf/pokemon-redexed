@@ -2,11 +2,10 @@ import { useState, useEffect, Fragment } from 'react';
 import usePokemonTable from '../../hooks/usePokemonTable';
 import Grid from '@mui/material/Grid';
 import PokemonCard from './pokemon-card/pokemon-card.component';
-import { styled } from '@mui/material/styles';
+
 import PokemonPagination from './pagination/pokemon-pagination.component';
 import PokemonCardLoading from './pokemon-card/pokemon-card-loading.component';
 import { HeaderFooterCard } from './pokemon-table.styles';
-import PokemonSearchInput from './pokemon-search-input/pokemon-search-input.component';
 
 const PokemonTable = () => {
 
