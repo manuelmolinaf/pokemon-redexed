@@ -56,7 +56,7 @@ const Pokemon = () => {
       <Card sx={{ display: 'flex', flexDirection: 'column', flex: '0 0 auto' }}>
 
 
-        <div style={{ display: 'flex', flexDirection: 'row' }}>
+        <div style={{ display: 'flex', flexDirection: 'row', flexWrap:'wrap' }}>
 
           <div>
             <img src={pokemon.sprites?.other['official-artwork'].front_default} width='100%' />
@@ -68,7 +68,8 @@ const Pokemon = () => {
             flexDirection: 'column',
             fontSize: 25,
             gap: 5,
-            alignItems: 'center'
+            alignItems: 'center',
+            marginBottom:'40px'
           }}>
             <div style={{ display: 'flex', flexDirection: 'row' }}>
               <div>
@@ -76,14 +77,14 @@ const Pokemon = () => {
                   <ArrowBackIosNewIcon />
                 </IconButton>
               </div>
-              <div>Pokedex No. {pokedexNumber()}</div>
+              <div style={{textAlign:'center'}}>Pokedex No. {pokedexNumber()}</div>
               <div>
                 <IconButton sx={{ color: 'white', marginLeft: 2 }} size='small' onClick={nextPokemon}>
                   <ArrowForwardIosIcon />
                 </IconButton>
               </div>
             </div>
-            <div>
+            <div style={{fontWeight:'bold'}}>
               {pokemonName()}
             </div>
             <div style={{ display: 'flex', flexDirection: 'row' }}>
