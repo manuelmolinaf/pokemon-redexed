@@ -3,14 +3,14 @@ import { Outlet } from 'react-router-dom'
 import { ContentDiv, OutletContainer } from './navigation.sytles'
 import Box from '@mui/material/Box';
 
- 
+
 const Navigation = () => {
 
   return (
     <ContentDiv>
-      <NavBar />
 
-      <OutletContainer>
+      <NavBar />
+      <OutletContainer >
         <Outlet />
       </OutletContainer>
     </ContentDiv>

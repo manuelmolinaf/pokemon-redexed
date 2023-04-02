@@ -15,7 +15,7 @@ const PokemonTypeChip = ({pokemonType}: PokemonTypeChipProps) =>{
 
   return(
     <Chip 
-      icon={<img src={`type_icons/${pokemonType}.svg`} alt={pokemonType} width="15" height="15" />}
+      icon={<img src={`/type_icons/${pokemonType}.svg`} alt={pokemonType} width="15" height="15" />}
       label={pokemonType} 
       style={{backgroundColor, color:'white'}} />
   )

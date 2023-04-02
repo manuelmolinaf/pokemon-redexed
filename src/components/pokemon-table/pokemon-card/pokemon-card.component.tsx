@@ -12,7 +12,7 @@ interface PokemonCardProps {
 
 const PokemonCard = ({ pokemonSpecies }: PokemonCardProps) => {
 
-  const [pokemon] = usePokemon(pokemonSpecies.id);
+  const {pokemon} = usePokemon(pokemonSpecies.id);
   const [isHovering, setIsHovering] = useState(false);
   const navigate = useNavigate();
 
